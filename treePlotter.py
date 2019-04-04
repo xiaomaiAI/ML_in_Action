@@ -17,3 +17,33 @@ def createPlot():
 	plotNode("Decesion Node", (0.5,0.1), (0.1,0.5), decisionNode)
 	plotNode("Leaf Node", (0.8,0.1), (0.3,0.8), leafNode)
 	plt.show()
+
+def getNumLeafs(myTree):
+	numLeafs = 0
+	firstStr = list(myTree.keys())[0]
+	secondDict = myTree[firstStr]
+	for key in secondDict.keys():
+		if type(secondDict[key]).__name__ == 'dict':
+			numLeafs += getNumLeafs(secondDict[key])
+		else: numLeafs += 1
+	return numLeafs
+
+def getTreeDepth(myTree):
+	maxDepth = 0
+	firstStr = list(myTree.keys())[0]
+	secondDict = myTree[firstStr]
+	for key in secondDict.keys():
+		if type(secondDict[key]).__name__ == 'dict':
+			thisDepth = 1 + getTreeDepth(secondDict[key])
+		else: thisDepth =1
+		if thisDepth > maxDepth:
+			maxDepth = thisDepth
+	return maxDepth
+
+def retrieveTree(i):
+	listOfTrees = [{'no surfacing':{0:'no',1:{'flippers':
+	{0:'no',1:'yes'}}}},
+	{'no surfacing':{0:'no',1:{'flippers':
+	{0:{'head':{0:'no',1:'yes'}},1:'no'}}}}
+	]
+	return listOfTrees[i]
